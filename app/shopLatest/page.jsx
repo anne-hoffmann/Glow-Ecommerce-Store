@@ -15,7 +15,7 @@ const shopLatest = () => {
             alt='model2' />
         </div>
         <div className='col-span-2 flex flex-col justify-evenly md:m-10 items-center gap-2 md:gap-5'>
-            <h2 className='font-serif text-2xl md:text-6xl text-center'>SEE WHAT'S NEW.</h2>
+            <h2 className='font-serif text-2xl md:text-6xl text-center'>SEE WHAT&apos;S NEW.</h2>
             <p className='font-sans text-sm text-center'>SHOP OUR LATEST PRODUCTS.</p>
             <div>
               <Link href='/newCollection'>
