@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react'
 import Item from '../item/page'
 
-const newCollection = () => {
+const NewCollection = () => {
 
-  const [new_collection,setNew_Collection] = useState([]);
+  const [new_collection, setNew_Collection] = useState([]);
 
   useEffect(()=>{
     fetch('http://localhost:4000/newcollection')
@@ -34,4 +34,4 @@ const newCollection = () => {
   )
 }
 
-export default newCollection
+export default NewCollection

@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import Breadcrumb from '../../breadcrumbs/page'
 import ProductDisplay from '../../product-display/page'
 
-const productId = (props) => {
+const ProductId = (props) => {
 
     const {all_products} = useContext(ShopContext)
     const {productId} = useParams()
@@ -20,4 +20,4 @@ const productId = (props) => {
   )
 }
 
-export default productId;
+export default ProductId;

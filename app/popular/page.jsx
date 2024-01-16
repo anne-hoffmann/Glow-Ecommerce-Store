@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Item from "../item/page"
 
 
-const popular = () => {
+const Popular = () => {
 
   const [popularProducts,setPopularProducts] = useState([]);
 
@@ -34,4 +34,4 @@ const popular = () => {
   )
 }
 
-export default popular
+export default Popular

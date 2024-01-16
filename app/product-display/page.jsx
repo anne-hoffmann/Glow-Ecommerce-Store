@@ -4,7 +4,7 @@ import BrightStar from '../assets/star-bright.png'
 import DullStar from '../assets/star-dull.png'
 import { ShopContext } from '../Context/ShopContext';
 
-const productDisplay = (props) => {
+const ProductDisplay = (props) => {
   const {product} = props;
   const {addToCart} = useContext(ShopContext);
 
@@ -71,4 +71,4 @@ const productDisplay = (props) => {
   )
 }
 
-export default productDisplay
+export default ProductDisplay

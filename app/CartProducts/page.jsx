@@ -22,7 +22,7 @@ const CartProducts = () => {
         {all_products.map((e)=>{
             if(cartItems[e.id]>0)
             {
-                return <div>
+                return <div key={e.id}>
                         <div className='grid grid-cols-6 gap-4 py-2 md:py-4 font-sans items-center'>
                             <Image
                             src={e.image}
