@@ -17,7 +17,7 @@ const shopLatest = () => {
         <div className='col-span-2 flex flex-col justify-evenly md:m-10 items-center gap-2 md:gap-5'>
             <h2 className='font-serif text-2xl md:text-6xl text-center'>SEE WHAT'S NEW.</h2>
             <p className='font-sans text-sm text-center'>SHOP OUR LATEST PRODUCTS.</p>
-            <div className=''>
+            <div>
               <Link href='/newCollection'>
                 <button className='w-24 h-6 text-xs md:text-base md:w-36 md:h-10 bg-[#020200] hover:scale-110 transition ease-in-out  text-[#b4c9ce] rounded-full cursor-pointer font-sans'>SHOP LATEST</button>
               </Link>
