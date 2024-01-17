@@ -17,67 +17,75 @@ const LoginSignup = () => {
     setFormData({...formData,[e.target.name]:e.target.value})
   }
 
-  const Login = async()=>{
-    console.log("Login Function Executed.",formData);
-    let responseData;
+  useEffect(() => {
+    const Login = async()=>{
+      console.log("Login Function Executed.",formData);
+      let responseData;
 
-    try {
-      const response = await fetch('http://localhost:4000/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      try {
+        const response = await fetch('http://localhost:4000/login', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
 
-      responseData = await response.json();
+        responseData = await response.json();
 
-      if (responseData.succes) {
-        localStorage.setItem('auth-token', responseData.token);
-        window.location.replace('/shop');
-      }
-      else{
-        alert(responseData.errors)
-      }
-    } catch (error) {
-      console.error("Error in signup function:", error);
-    }
-  }
-
-
-
-  const Signup = async () => {
-    console.log("Signup Function Executed.", formData);
-    let responseData;
-
-    try {
-      const response = await fetch('http://localhost:4000/signup', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      responseData = await response.json();
-
-      if (responseData.succes) {
-        useEffect(() => {
+        if (responseData.succes) {
           localStorage.setItem('auth-token', responseData.token);
           window.location.replace('/shop');
+        }
+        else{
+          alert(responseData.errors)
+        }
+      } catch (error) {
+        console.error("Error in signup function:", error);
+      }
+    }
+    const item = localStorage.getItem('key')
+  }, [])
+
+
+  useEffect(() => {
+    const Signup = async () => {
+      console.log("Signup Function Executed.", formData);
+      let responseData;
+
+      try {
+        const response = await fetch('http://localhost:4000/signup', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        responseData = await response.json();
+
+        useEffect(() => {
+          // Perform localStorage action
           const item = localStorage.getItem('key')
         }, [])
 
+        if (responseData.succes) {
+          localStorage.setItem('auth-token', responseData.token);
+          window.location.replace('/shop');
+        }
+        else{
+          alert(responseData.errors)
+        }
+      } catch (error) {
+        console.error("Error in signup function:", error);
       }
-      else{
-        alert(responseData.errors)
-      }
-    } catch (error) {
-      console.error("Error in signup function:", error);
     }
-  }
+    const item = localStorage.getItem('key')
+  }, [])
+
+
 
 
   return (
