@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const LoginSignup = () => {
@@ -33,8 +34,11 @@ const LoginSignup = () => {
       responseData = await response.json();
 
       if (responseData.succes) {
-        localStorage.setItem('auth-token', responseData.token);
-        window.location.replace('/shop');
+        useEffect(() => {
+          localStorage.setItem('auth-token', responseData.token);
+          window.location.replace('/shop');
+          const item = localStorage.getItem('key')
+        }, [])
       }
       else{
         alert(responseData.errors)
@@ -43,6 +47,8 @@ const LoginSignup = () => {
       console.error("Error in signup function:", error);
     }
   }
+
+
 
   const signup = async () => {
     console.log("Signup Function Executed.", formData);
