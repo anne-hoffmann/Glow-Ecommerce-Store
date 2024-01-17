@@ -34,7 +34,7 @@ const LoginSignup = () => {
 
         responseData = await response.json();
 
-        if (responseData.succes) {
+        if (responseData.success) {
           localStorage.setItem('auth-token', responseData.token);
           window.location.replace('/shop');
         }
@@ -46,7 +46,7 @@ const LoginSignup = () => {
       }
     }
     const item = localStorage.getItem('key')
-  }, [])
+  },)
 
 
   useEffect(() => {
@@ -66,12 +66,8 @@ const LoginSignup = () => {
 
         responseData = await response.json();
 
-        useEffect(() => {
-          // Perform localStorage action
-          const item = localStorage.getItem('key')
-        }, [])
 
-        if (responseData.succes) {
+        if (responseData.success) {
           localStorage.setItem('auth-token', responseData.token);
           window.location.replace('/shop');
         }
@@ -83,7 +79,7 @@ const LoginSignup = () => {
       }
     }
     const item = localStorage.getItem('key')
-  }, [])
+  },)
 
 
 
