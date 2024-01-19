@@ -1,10 +1,8 @@
 "use client"
 import React, { createContext, useState } from "react";
-import { LocalStorage } from "node-localstorage";
 
 export const ShopContext = createContext(null);
 
-const localStorage = new LocalStorage('./scratch');
 
 const getDefaultCart = () => {
     let cart ={};
