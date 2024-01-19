@@ -13,10 +13,10 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
 
-    useEffect(()=>{
-
     const [all_products, setAll_Products] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
+
+    useEffect(()=>{
 
         fetch('http://localhost:4000/allproducts')
         .then((response)=>response.json())
