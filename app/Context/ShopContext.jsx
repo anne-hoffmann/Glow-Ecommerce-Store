@@ -13,10 +13,11 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
 
+    useEffect(()=>{
+
     const [all_products, setAll_Products] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
 
-    useEffect(()=>{
         fetch('http://localhost:4000/allproducts')
         .then((response)=>response.json())
         .then((data)=>setAll_Products(data))
@@ -35,7 +36,7 @@ const ShopContextProvider = (props) => {
         }
     },[])
 
-
+useEffect(()=>{
     const addToCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
         if(localStorage.getItem('auth-token')){
@@ -52,7 +53,9 @@ const ShopContextProvider = (props) => {
             .then((data)=>console.log(data));
         }
     }
+})
 
+useEffect(()=>{
     const removeFromCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
         if(localStorage.getItem('auth-token')){
@@ -69,7 +72,9 @@ const ShopContextProvider = (props) => {
             .then((data)=>console.log(data));
         }
     }
+})
 
+useEffect(()=>{
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
@@ -81,7 +86,10 @@ const ShopContextProvider = (props) => {
         }
         return totalAmount; // Moved the return statement outside the loop
     };
+})
 
+
+useEffect(()=>{
     const getTotalCartItems = () => {
         let totalItem = 0;
         for(
@@ -93,6 +101,8 @@ const ShopContextProvider = (props) => {
         }
         return totalItem;
     }
+})
+
 
 
     const contextValue = {getTotalCartItems ,getTotalCartAmount, all_products, cartItems,addToCart,removeFromCart};
