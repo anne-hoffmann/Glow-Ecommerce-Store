@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import ArrowIcon from '../assets/right-arrow.png'
 import Image from 'next/image';

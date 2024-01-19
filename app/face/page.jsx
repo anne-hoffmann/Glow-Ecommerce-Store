@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import ShopCategory from '../shopCategory/page'
 import Image from 'next/image'
