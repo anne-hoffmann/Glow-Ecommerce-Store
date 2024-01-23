@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const ShopContext = createContext(null);
 
@@ -22,55 +22,62 @@ const ShopContextProvider = (props) => {
         .then((response)=>response.json())
         .then((data)=>setAll_Products(data))
 
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
-            fetch('https://glow-server.onrender.com/getcart',{
-                method:"POST",
-                headers:{
-                    Accept:'application/json',
-                    'auth-token':`${localStorage.getItem('auth-token')}`,
-                    'Content-Type':'application/json',
-                },
-                body:"",
-            }).then((response)=>response.json())
-            .then((data)=>setCartItems(data));
-        }
+        useEffect(()=>{
+            if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+                fetch('https://glow-server.onrender.com/getcart',{
+                    method:"POST",
+                    headers:{
+                        Accept:'application/json',
+                        'auth-token':`${localStorage.getItem('auth-token')}`,
+                        'Content-Type':'application/json',
+                    },
+                    body:"",
+                }).then((response)=>response.json())
+                .then((data)=>setCartItems(data));
+            }
+        }, [])
+
 
 
 
     const addToCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
-            fetch('https://glow-server.onrender.com/addtocart',{
-                method:'POST',
-                headers:{
-                    Accept:'application/json',
-                    'auth-token':`${localStorage.getItem('auth-token')}`,
-                    'Content-Type':'application/json',
-                },
-                body:JSON.stringify({"itemId":itemId}),
-            })
-            .then((response)=>response.json())
-            .then((data)=>console.log(data));
-        }
+        useEffect(()=>{
+            if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+                fetch('https://glow-server.onrender.com/addtocart',{
+                    method:'POST',
+                    headers:{
+                        Accept:'application/json',
+                        'auth-token':`${localStorage.getItem('auth-token')}`,
+                        'Content-Type':'application/json',
+                    },
+                    body:JSON.stringify({"itemId":itemId}),
+                })
+                .then((response)=>response.json())
+                .then((data)=>console.log(data));
+            }
+        },[])
     }
 
 
 
     const removeFromCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
-            fetch('https://glow-server.onrender.com/removefromcart',{
-                method:'POST',
-                headers:{
-                    Accept:'application/json',
-                    'auth-token':`${localStorage.getItem('auth-token')}`,
-                    'Content-Type':'application/json',
-                },
-                body:JSON.stringify({"itemId":itemId}),
-            })
-            .then((response)=>response.json())
-            .then((data)=>console.log(data));
-        }
+        useEffect(()=>{
+            if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+                fetch('https://glow-server.onrender.com/removefromcart',{
+                    method:'POST',
+                    headers:{
+                        Accept:'application/json',
+                        'auth-token':`${localStorage.getItem('auth-token')}`,
+                        'Content-Type':'application/json',
+                    },
+                    body:JSON.stringify({"itemId":itemId}),
+                })
+                .then((response)=>response.json())
+                .then((data)=>console.log(data));
+            }
+        },[])
     }
 
 
