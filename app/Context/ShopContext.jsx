@@ -16,11 +16,10 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
 
+    const [all_products, setAll_Products] = useState([]);
+    const [cartItems, setCartItems] = useState(getDefaultCart());
 
     useEffect(()=>{
-        const [all_products, setAll_Products] = useState([]);
-        const [cartItems, setCartItems] = useState(getDefaultCart());
-
 
             fetch('https://glow-server.onrender.com/allproducts')
             .then((response)=>response.json())
