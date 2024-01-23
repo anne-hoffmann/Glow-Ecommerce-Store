@@ -104,12 +104,8 @@ const ShopContextProvider = (props) => {
         }
         return totalItem;
     }
-},[])
 
     const contextValue = {getTotalCartItems ,getTotalCartAmount, all_products, cartItems,addToCart,removeFromCart};
-
-
-
 
 
     return (
@@ -117,6 +113,10 @@ const ShopContextProvider = (props) => {
             {props.children}
         </ShopContext.Provider>
     );
+
+},)
+
+
 };
 
 
