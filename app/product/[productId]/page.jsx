@@ -3,7 +3,6 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../../Context/ShopContext'
 import { useParams } from 'next/navigation'
-import Breadcrumb from '../../breadcrumbs/page'
 import ProductDisplay from '../../product-display/page'
 
 const ProductId = (props) => {
@@ -14,7 +13,6 @@ const ProductId = (props) => {
 
   return (
     <div>
-        <Breadcrumb product={product} />
         <ProductDisplay product={product} />
     </div>
   )
