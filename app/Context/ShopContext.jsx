@@ -1,6 +1,6 @@
 "use client"
-import React, { createContext, useState } from "react";
-import { LocalStorage } from "node-localstorage";
+import React, { createContext, useEffect, useState } from "react";
+
 
 export const ShopContext = createContext(null);
 
@@ -16,26 +16,29 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
 
-    const [all_products, setAll_Products] = useState([]);
-    const [cartItems, setCartItems] = useState(getDefaultCart());
-    const localStorage = new LocalStorage('./scratch');
 
-        fetch('https://glow-server.onrender.com/allproducts')
-        .then((response)=>response.json())
-        .then((data)=>setAll_Products(data))
+    useEffect(()=>{
+        const [all_products, setAll_Products] = useState([]);
+        const [cartItems, setCartItems] = useState(getDefaultCart());
 
-        if(localStorage.getItem('auth-token')){
-            fetch('https://glow-server.onrender.com/getcart',{
-                method:"POST",
-                headers:{
-                    Accept:'application/json',
-                    'auth-token':`${localStorage.getItem('auth-token')}`,
-                    'Content-Type':'application/json',
-                },
-                body:"",
-            }).then((response)=>response.json())
-            .then((data)=>setCartItems(data));
-        }
+
+            fetch('https://glow-server.onrender.com/allproducts')
+            .then((response)=>response.json())
+            .then((data)=>setAll_Products(data))
+
+            if(localStorage.getItem('auth-token')){
+                fetch('https://glow-server.onrender.com/getcart',{
+                    method:"POST",
+                    headers:{
+                        Accept:'application/json',
+                        'auth-token':`${localStorage.getItem('auth-token')}`,
+                        'Content-Type':'application/json',
+                    },
+                    body:"",
+                }).then((response)=>response.json())
+                .then((data)=>setCartItems(data));
+            }
+
 
 
 
@@ -102,7 +105,7 @@ const ShopContextProvider = (props) => {
         }
         return totalItem;
     }
-
+},[])
 
     const contextValue = {getTotalCartItems ,getTotalCartAmount, all_products, cartItems,addToCart,removeFromCart};
 
