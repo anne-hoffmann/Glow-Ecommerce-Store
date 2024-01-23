@@ -23,7 +23,7 @@ const ShopContextProvider = (props) => {
         .then((response)=>response.json())
         .then((data)=>setAll_Products(data))
 
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+        if(localStorage.getItem('auth-token')){
             fetch('https://glow-server.onrender.com/getcart',{
                 method:"POST",
                 headers:{
@@ -40,7 +40,7 @@ const ShopContextProvider = (props) => {
 
     const addToCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+        if(localStorage.getItem('auth-token')){
             fetch('https://glow-server.onrender.com/addtocart',{
                 method:'POST',
                 headers:{
@@ -59,7 +59,7 @@ const ShopContextProvider = (props) => {
 
     const removeFromCart = (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
-        if(typeof window !== 'undefined' && localStorage.getItem('auth-token')){
+        if(localStorage.getItem('auth-token')){
             fetch('https://glow-server.onrender.com/removefromcart',{
                 method:'POST',
                 headers:{
