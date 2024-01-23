@@ -1,5 +1,6 @@
 "use client"
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
+import { LocalStorage } from "node-localstorage";
 
 export const ShopContext = createContext(null);
 
@@ -17,7 +18,7 @@ const ShopContextProvider = (props) => {
 
     const [all_products, setAll_Products] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
-
+    const localStorage = new LocalStorage('./scratch');
 
         fetch('https://glow-server.onrender.com/allproducts')
         .then((response)=>response.json())
