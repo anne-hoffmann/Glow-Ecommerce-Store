@@ -13,10 +13,7 @@ const getDefaultCart = () => {
 }
 
 
-
 const ShopContextProvider = (props) => {
-
-    useEffect(()=>{
 
     const [all_products, setAll_Products] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
@@ -117,7 +114,6 @@ const ShopContextProvider = (props) => {
             {props.children}
         </ShopContext.Provider>
     );
-},[])
 };
 
 
