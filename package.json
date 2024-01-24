@@ -9,22 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^2.4.0",
-    "@stripe/stripe-js": "^2.3.0",
-    "@stripe/stripe-react-native": "0.28.0",
-    "@tanstack/react-query": "^5.17.9",
     "expo": "^49.0.21",
     "fs": "^0.0.1-security",
-    "next": "^14.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sharp": "^0.33.2",
-    "stripe": "^14.11.0"
+    "next": "^14.0.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "sharp": "^0.33.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
     "eslint": "^8",
-    "eslint-config-next": "^14.1.0",
+    "eslint-config-next": "^14.0.4",
     "next-router-mock": "^0.9.11",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0"

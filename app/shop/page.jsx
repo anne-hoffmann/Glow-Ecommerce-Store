@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import Link from 'next/link'
 import Hero from "../hero/page"
 import Popular from "../popular/page"
 import ShopLatest from '../shopLatest/page'

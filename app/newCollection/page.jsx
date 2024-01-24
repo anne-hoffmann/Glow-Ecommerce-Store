@@ -8,7 +8,7 @@ const NewCollection = () => {
   const [new_collection, setNew_Collection] = useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:4000/newcollection')
+    fetch('https://glow-server.onrender.com//newcollection')
     .then((response)=>response.json())
     .then((data)=>setNew_Collection(data));
   },[])
