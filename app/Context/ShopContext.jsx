@@ -19,58 +19,54 @@ const ShopContextProvider = (props) => {
     .then((response) => response.json())
     .then((data) => setAll_Products(data));
 
-  useEffect(() => {
-    if (localStorage.getItem("auth-token")) {
-      fetch("https://glow-server.onrender.com/getcart", {
+  if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
+    fetch("https://glow-server.onrender.com/getcart", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "auth-token": `${localStorage.getItem("auth-token")}`,
+        "Content-Type": "application/json",
+      },
+      body: "",
+    })
+      .then((response) => response.json())
+      .then((data) => setCartItems(data));
+  }
+
+  const addToCart = (itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+
+    if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
+      fetch("https://glow-server.onrender.com/addtocart", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "auth-token": `${localStorage.getItem("auth-token")}`,
           "Content-Type": "application/json",
         },
-        body: "",
+        body: JSON.stringify({ itemId: itemId }),
       })
         .then((response) => response.json())
-        .then((data) => setCartItems(data));
+        .then((data) => console.log(data));
     }
-  });
-
-  const AddToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    useEffect(() => {
-      if (localStorage.getItem("auth-token")) {
-        fetch("https://glow-server.onrender.com/addtocart", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "auth-token": `${localStorage.getItem("auth-token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ itemId: itemId }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-    });
   };
 
-  const RemoveFromCart = (itemId) => {
+  const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    useEffect(() => {
-      if (localStorage.getItem("auth-token")) {
-        fetch("https://glow-server.onrender.com/removefromcart", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "auth-token": `${localStorage.getItem("auth-token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ itemId: itemId }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-    });
+
+    if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
+      fetch("https://glow-server.onrender.com/removefromcart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "auth-token": `${localStorage.getItem("auth-token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId: itemId }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
   };
 
   const getTotalCartAmount = () => {
@@ -101,8 +97,8 @@ const ShopContextProvider = (props) => {
     getTotalCartAmount,
     all_products,
     cartItems,
-    AddToCart,
-    RemoveFromCart,
+    addToCart,
+    removeFromCart,
   };
 
   return (
