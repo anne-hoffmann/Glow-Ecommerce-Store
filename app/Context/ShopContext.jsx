@@ -19,11 +19,11 @@ const ShopContextProvider = (props) => {
     const [all_products, setAll_Products] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
 
-    useEffect(()=>{
+    fetch('https://glow-server.onrender.com/allproducts')
+    .then((response)=>response.json())
+    .then((data)=>setAll_Products(data))
 
-            fetch('https://glow-server.onrender.com/allproducts')
-            .then((response)=>response.json())
-            .then((data)=>setAll_Products(data))
+    useEffect(()=>{
 
             if(localStorage.getItem('auth-token')){
                 fetch('https://glow-server.onrender.com/getcart',{
@@ -35,9 +35,9 @@ const ShopContextProvider = (props) => {
                     },
                     body:"",
                 }).then((response)=>response.json())
-                .then((data)=>setCartItems(data));
+                .then((data)=>setCartItems(data))
             }
-
+        }, [])
 
 
 
@@ -79,6 +79,8 @@ const ShopContextProvider = (props) => {
 
 
 
+
+
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
@@ -105,7 +107,10 @@ const ShopContextProvider = (props) => {
         return totalItem;
     }
 
+
+
     const contextValue = {getTotalCartItems ,getTotalCartAmount, all_products, cartItems,addToCart,removeFromCart};
+
 
 
     return (
@@ -113,7 +118,7 @@ const ShopContextProvider = (props) => {
             {props.children}
         </ShopContext.Provider>
     );
-})
+
 
 
 

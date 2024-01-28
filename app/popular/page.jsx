@@ -9,7 +9,7 @@ const Popular = () => {
   const [popularProducts,setPopularProducts] = useState([]);
 
   useEffect(()=>{
-    fetch('https://glow-server.onrender.com//popular')
+    fetch('https://glow-server.onrender.com/popular')
     .then((response)=>response.json())
     .then((data)=>setPopularProducts(data));
   },[])
