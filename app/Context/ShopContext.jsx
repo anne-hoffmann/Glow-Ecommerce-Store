@@ -20,8 +20,7 @@ const ShopContextProvider = (props) => {
     .then((data) => setAll_Products(data));
 
   useEffect(() => {
-    // Fetch cart items only on the client side and if auth token exists
-    if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
+    if (localStorage.getItem("auth-token")) {
       fetch("https://glow-server.onrender.com/getcart", {
         method: "POST",
         headers: {
@@ -34,12 +33,11 @@ const ShopContextProvider = (props) => {
         .then((response) => response.json())
         .then((data) => setCartItems(data));
     }
-  }, []);
+  });
 
-  const addToCart = (itemId) => {
-    // Update cart items only on the client side
-    if (typeof window !== "undefined") {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+  const AddToCart = (itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    useEffect(() => {
       if (localStorage.getItem("auth-token")) {
         fetch("https://glow-server.onrender.com/addtocart", {
           method: "POST",
@@ -53,13 +51,12 @@ const ShopContextProvider = (props) => {
           .then((response) => response.json())
           .then((data) => console.log(data));
       }
-    }
+    });
   };
 
-  const removeFromCart = (itemId) => {
-    // Update cart items only on the client side
-    if (typeof window !== "undefined") {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+  const RemoveFromCart = (itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    useEffect(() => {
       if (localStorage.getItem("auth-token")) {
         fetch("https://glow-server.onrender.com/removefromcart", {
           method: "POST",
@@ -73,62 +70,8 @@ const ShopContextProvider = (props) => {
           .then((response) => response.json())
           .then((data) => console.log(data));
       }
-    }
+    });
   };
-
-  //   useEffect(() => {
-  //     if (localStorage.getItem("auth-token")) {
-  //       fetch("https://glow-server.onrender.com/getcart", {
-  //         method: "POST",
-  //         headers: {
-  //           Accept: "application/json",
-  //           "auth-token": `${localStorage.getItem("auth-token")}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: "",
-  //       })
-  //         .then((response) => response.json())
-  //         .then((data) => setCartItems(data));
-  //     }
-  //   });
-
-  //   const addToCart = (itemId) => {
-  //     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-  //     useEffect(() => {
-  //       if (localStorage.getItem("auth-token")) {
-  //         fetch("https://glow-server.onrender.com/addtocart", {
-  //           method: "POST",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "auth-token": `${localStorage.getItem("auth-token")}`,
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({ itemId: itemId }),
-  //         })
-  //           .then((response) => response.json())
-  //           .then((data) => console.log(data));
-  //       }
-  //     });
-  //   };
-
-  //   const removeFromCart = (itemId) => {
-  //     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-  //     useEffect(() => {
-  //       if (localStorage.getItem("auth-token")) {
-  //         fetch("https://glow-server.onrender.com/removefromcart", {
-  //           method: "POST",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "auth-token": `${localStorage.getItem("auth-token")}`,
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({ itemId: itemId }),
-  //         })
-  //           .then((response) => response.json())
-  //           .then((data) => console.log(data));
-  //       }
-  //     });
-  //   };
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -158,8 +101,8 @@ const ShopContextProvider = (props) => {
     getTotalCartAmount,
     all_products,
     cartItems,
-    addToCart,
-    removeFromCart,
+    AddToCart,
+    RemoveFromCart,
   };
 
   return (
