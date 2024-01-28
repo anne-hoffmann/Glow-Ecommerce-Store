@@ -33,11 +33,9 @@ const ShopContextProvider = (props) => {
         .then((response) => response.json())
         .then((data) => setCartItems(data));
     }
-  }, []);
 
-  const addToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    useEffect(() => {
+    const addToCart = (itemId) => {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
       if (localStorage.getItem("auth-token")) {
         fetch("https://glow-server.onrender.com/addtocart", {
           method: "POST",
@@ -51,12 +49,10 @@ const ShopContextProvider = (props) => {
           .then((response) => response.json())
           .then((data) => console.log(data));
       }
-    });
-  };
+    };
 
-  const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    useEffect(() => {
+    const removeFromCart = (itemId) => {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
       if (localStorage.getItem("auth-token")) {
         fetch("https://glow-server.onrender.com/removefromcart", {
           method: "POST",
@@ -70,46 +66,46 @@ const ShopContextProvider = (props) => {
           .then((response) => response.json())
           .then((data) => console.log(data));
       }
-    });
-  };
+    };
 
-  const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        let itemInfo = all_products.find(
-          (product) => product.id === Number(item)
-        );
-        totalAmount += itemInfo.new_price * cartItems[item];
+    const getTotalCartAmount = () => {
+      let totalAmount = 0;
+      for (const item in cartItems) {
+        if (cartItems[item] > 0) {
+          let itemInfo = all_products.find(
+            (product) => product.id === Number(item)
+          );
+          totalAmount += itemInfo.new_price * cartItems[item];
+        }
       }
-    }
-    return totalAmount;
-  };
+      return totalAmount;
+    };
 
-  const getTotalCartItems = () => {
-    let totalItem = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        totalItem += cartItems[item];
+    const getTotalCartItems = () => {
+      let totalItem = 0;
+      for (const item in cartItems) {
+        if (cartItems[item] > 0) {
+          totalItem += cartItems[item];
+        }
       }
-    }
-    return totalItem;
-  };
+      return totalItem;
+    };
 
-  const contextValue = {
-    getTotalCartItems,
-    getTotalCartAmount,
-    all_products,
-    cartItems,
-    addToCart,
-    removeFromCart,
-  };
+    const contextValue = {
+      getTotalCartItems,
+      getTotalCartAmount,
+      all_products,
+      cartItems,
+      addToCart,
+      removeFromCart,
+    };
 
-  return (
-    <ShopContext.Provider value={contextValue}>
-      {props.children}
-    </ShopContext.Provider>
-  );
+    return (
+      <ShopContext.Provider value={contextValue}>
+        {props.children}
+      </ShopContext.Provider>
+    );
+  }, []);
 };
 
 export default ShopContextProvider;
