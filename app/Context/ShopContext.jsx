@@ -20,7 +20,7 @@ const ShopContextProvider = (props) => {
     .then((data) => setAll_Products(data));
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
+    if (localStorage.getItem("auth-token")) {
       fetch("https://glow-server.onrender.com/getcart", {
         method: "POST",
         headers: {
@@ -35,42 +35,40 @@ const ShopContextProvider = (props) => {
     }
   });
 
+  useEffect(() => {}, [itemId]);
+
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    useEffect(() => {
-      if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
-        fetch("https://glow-server.onrender.com/addtocart", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "auth-token": `${localStorage.getItem("auth-token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ itemId: itemId }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-    });
+    // if (localStorage.getItem("auth-token")) {
+    //   fetch("https://glow-server.onrender.com/addtocart", {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "auth-token": `${localStorage.getItem("auth-token")}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ itemId: itemId }),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+    // }
   };
 
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    useEffect(() => {
-      if (typeof window !== "undefined" && localStorage.getItem("auth-token")) {
-        fetch("https://glow-server.onrender.com/removefromcart", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "auth-token": `${localStorage.getItem("auth-token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ itemId: itemId }),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-    });
+    // if (localStorage.getItem("auth-token")) {
+    //   fetch("https://glow-server.onrender.com/removefromcart", {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "auth-token": `${localStorage.getItem("auth-token")}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ itemId: itemId }),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+    // }
   };
 
   const getTotalCartAmount = () => {
