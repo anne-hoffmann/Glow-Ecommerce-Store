@@ -10,6 +10,10 @@ const ProductDisplay = (props) => {
   const { product } = props;
   const { addToCart } = useContext(ShopContext);
 
+  if (!product || !product.image) {
+    return <div>Error: Product data is missing or invalid.</div>;
+  }
+
   return (
     <div className="md:grid md:grid-cols-2 gap-4 p-9 bg-[#f5f1f2]">
       <div className="flex justify-center">
